@@ -40,11 +40,6 @@ namespace IsraelIT_test
                 c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
             });
 
-            string DBName = "../Library.db";
-
-            //services.AddDbContext<LibraryDBContext>(options =>
-            //    options.UseSqlite($"Filename={DBName}"));
-
             services.AddDbContext<LibraryDBContext>();
 
         }

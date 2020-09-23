@@ -7,7 +7,6 @@ using IsraelIT_test.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using System.Web.Http.Description;
 using IsraelIT_test.RequestModels;
 
 namespace IsraelIT_test.Controllers
@@ -30,7 +29,6 @@ namespace IsraelIT_test.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:int}")]
-        [ResponseType(typeof(Book))]
         public async Task<ActionResult<Book>> Get(int id) 
         {
             if (id < 0)
@@ -55,12 +53,12 @@ namespace IsraelIT_test.Controllers
         /// <summary>
         /// If author name not emthy -- filter books by this parametr, otherwise return not filtered list of books.
         /// </summary>
-        /// <param name="limit">Amount of elements on page</param>
-        /// <param name="page">Page number</param>
+        /// <param name="authorName"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("GetByAuthor/")]
-        [ResponseType(typeof(IEnumerable<Book>))]
         public async Task<ActionResult<IEnumerable<Book>>> GetByAuthor(string authorName = "", int page = 0, int limit = 10) 
         {
             if (limit < 0)
@@ -239,13 +237,6 @@ namespace IsraelIT_test.Controllers
             libraryDBContext.SaveChanges();
 
             return Ok();
-        }
-
-        [HttpGet]
-        [Route("test")]
-        public object test() 
-        {
-            return libraryDBContext.BookAuthors.ToList();
         }
     }
 }

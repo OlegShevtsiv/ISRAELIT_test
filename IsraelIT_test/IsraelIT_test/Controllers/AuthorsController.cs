@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IsraelIT_test.Models;
 using IsraelIT_test.Models.Models;
-using System.Web.Http.Description;
 using IsraelIT_test.RequestModels;
 
 namespace IsraelIT_test.Controllers
@@ -29,7 +28,6 @@ namespace IsraelIT_test.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:int}")]
-        [ResponseType(typeof(Author))]
         public async Task<ActionResult<Author>> Get(int id)
         {
             if (id < 0)
@@ -58,8 +56,7 @@ namespace IsraelIT_test.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetAll/")]
-        [ResponseType(typeof(IEnumerable<Author>))]
-        public async Task<ActionResult<IEnumerable<Author>>> GetAll(int page = 0, int limit = 10)
+        public ActionResult<IEnumerable<Author>> GetAll(int page = 0, int limit = 10)
         {
             if (limit < 0)
             {
@@ -92,7 +89,7 @@ namespace IsraelIT_test.Controllers
         /// <param name="author"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]AuthorRequestModel author)
+        public IActionResult Post([FromBody]AuthorRequestModel author)
         {
             if (!ModelState.IsValid)
             {

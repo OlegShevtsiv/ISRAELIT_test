@@ -52,8 +52,9 @@
             <summary>
             If author name not emthy -- filter books by this parametr, otherwise return not filtered list of books.
             </summary>
-            <param name="limit">Amount of elements on page</param>
-            <param name="page">Page number</param>
+            <param name="authorName"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
             <returns></returns>
         </member>
         <member name="M:IsraelIT_test.Controllers.BooksController.Post(IsraelIT_test.RequestModels.BookRequestModel)">
