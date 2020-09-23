@@ -8,12 +8,11 @@ namespace WebAPIXUnitTests
 {
     public class BooksControllerTests
     {
-        BooksController booksController;
+        BooksApiController booksController;
         public BooksControllerTests()
         {
 
         }
-
 
         [Fact]
         public void GetSingleBookByIdTest_ReturnsSuccesWithSearchedObject()

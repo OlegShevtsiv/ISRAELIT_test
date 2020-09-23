@@ -10,12 +10,11 @@ namespace WebAPIXUnitTests
 {
     public class AuthorsControllerTests
     {
-        AuthorsController authorsController;
+        AuthorsApiController authorsController;
         public AuthorsControllerTests()
         {
-            this.authorsController = new AuthorsController(new LibraryDBContext(new DbContextOptions<LibraryDBContext>()));
+            this.authorsController = new AuthorsApiController(new LibraryDBContext(new DbContextOptions<LibraryDBContext>()));
         }
-
 
         [Fact]
         public void GetSingleAuthorByIdTest_ReturnsSuccesWithSearchedObject()

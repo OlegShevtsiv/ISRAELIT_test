@@ -11,13 +11,13 @@ using IsraelIT_test.RequestModels;
 
 namespace IsraelIT_test.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/authors")]
     [ApiController]
-    public class AuthorsController : ControllerBase
+    public class AuthorsApiController : ControllerBase
     {
         private readonly LibraryDBContext libraryDBContext;
 
-        public AuthorsController(LibraryDBContext context)
+        public AuthorsApiController(LibraryDBContext context)
         {
             libraryDBContext = context;
         }
@@ -128,7 +128,7 @@ namespace IsraelIT_test.Controllers
         /// <param name="id"></param>
         /// <param name="author"></param>
         /// <returns></returns>
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> Put(int id, [FromBody]AuthorRequestModel author)
         {
             if (id < 0)

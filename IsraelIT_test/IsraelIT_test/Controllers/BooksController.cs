@@ -12,12 +12,12 @@ using IsraelIT_test.RequestModels;
 namespace IsraelIT_test.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class BooksController : ControllerBase
+    [Route("api/books")]
+    public class BooksApiController : ControllerBase
     {
         private readonly LibraryDBContext libraryDBContext;
 
-        public BooksController(LibraryDBContext _libraryDBContext)
+        public BooksApiController(LibraryDBContext _libraryDBContext)
         {
             this.libraryDBContext = _libraryDBContext;
         }
@@ -51,7 +51,7 @@ namespace IsraelIT_test.Controllers
 
 
         /// <summary>
-        /// If author name not emthy -- filter books by this parametr, otherwise return not filtered list of books.
+        /// Returns books by Author name
         /// </summary>
         /// <param name="authorName"></param>
         /// <param name="page"></param>
@@ -59,7 +59,7 @@ namespace IsraelIT_test.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetByAuthor/")]
-        public async Task<ActionResult<IEnumerable<Book>>> GetByAuthor(string authorName = "", int page = 0, int limit = 10) 
+        public async Task<ActionResult<IEnumerable<Book>>> GetByAuthor(string authorName, int page = 0, int limit = 10) 
         {
             if (limit < 0)
             {
@@ -75,11 +75,7 @@ namespace IsraelIT_test.Controllers
 
             if (string.IsNullOrEmpty(authorName))
             {
-                books = libraryDBContext.Books
-                    .Include(b => b.BookAuthors)
-                    .ThenInclude(ba => ba.Author)
-                    .Skip(page * limit)
-                    .Take(limit);
+                return BadRequest($"'{nameof(authorName)}' is reqired!");
             }
             else
             {
@@ -92,13 +88,45 @@ namespace IsraelIT_test.Controllers
 
                 if (author == null) 
                 {
-                    return NotFound($"Author with name'{authorName}' wasn't found.");
+                    return NotFound($"Author with name'{authorName}' doesn't exist.");
                 }
 
                 books = author.Books
                     .Skip(page * limit)
                     .Take(limit);
             }
+
+            if (books == null || !books.Any())
+            {
+                return NotFound("No books found of this request.");
+            }
+
+            return new ObjectResult(books);
+        }
+
+ 
+        [HttpGet]
+        [Route("GetAll/")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetAll(int page = 0, int limit = 10)
+        {
+            if (limit < 0)
+            {
+                return BadRequest($"'{nameof(limit)}' have to be bigger than Zero!");
+            }
+
+            if (page < 0)
+            {
+                return BadRequest($"'{nameof(page)}' have to be bigger than Zero!");
+            }
+
+            IEnumerable<Book> books;
+
+            books = libraryDBContext.Books
+                    .Include(b => b.BookAuthors)
+                    .ThenInclude(ba => ba.Author)
+                    .Skip(page * limit)
+                    .Take(limit);
+
 
             if (books == null || !books.Any())
             {
@@ -155,7 +183,7 @@ namespace IsraelIT_test.Controllers
         /// <param name="id"></param>
         /// <param name="book"></param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> Put(int id, [FromBody]BookRequestModel book)
         {
 

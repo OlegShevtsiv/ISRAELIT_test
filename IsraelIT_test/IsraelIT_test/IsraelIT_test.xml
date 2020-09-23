@@ -4,14 +4,14 @@
         <name>IsraelIT_test</name>
     </assembly>
     <members>
-        <member name="M:IsraelIT_test.Controllers.AuthorsController.Get(System.Int32)">
+        <member name="M:IsraelIT_test.Controllers.AuthorsApiController.Get(System.Int32)">
             <summary>
             Get author by id
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:IsraelIT_test.Controllers.AuthorsController.GetAll(System.Int32,System.Int32)">
+        <member name="M:IsraelIT_test.Controllers.AuthorsApiController.GetAll(System.Int32,System.Int32)">
             <summary>
             Get authors limited by page and amount of items on page
             </summary>
@@ -19,14 +19,14 @@
             <param name="limit"></param>
             <returns></returns>
         </member>
-        <member name="M:IsraelIT_test.Controllers.AuthorsController.Post(IsraelIT_test.RequestModels.AuthorRequestModel)">
+        <member name="M:IsraelIT_test.Controllers.AuthorsApiController.Post(IsraelIT_test.RequestModels.AuthorRequestModel)">
             <summary>
             Create new Author
             </summary>
             <param name="author"></param>
             <returns></returns>
         </member>
-        <member name="M:IsraelIT_test.Controllers.AuthorsController.Put(System.Int32,IsraelIT_test.RequestModels.AuthorRequestModel)">
+        <member name="M:IsraelIT_test.Controllers.AuthorsApiController.Put(System.Int32,IsraelIT_test.RequestModels.AuthorRequestModel)">
             <summary>
             Update any author
             </summary>
@@ -34,37 +34,37 @@
             <param name="author"></param>
             <returns></returns>
         </member>
-        <member name="M:IsraelIT_test.Controllers.AuthorsController.Delete(System.Int32)">
+        <member name="M:IsraelIT_test.Controllers.AuthorsApiController.Delete(System.Int32)">
             <summary>
             Delete any author
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:IsraelIT_test.Controllers.BooksController.Get(System.Int32)">
+        <member name="M:IsraelIT_test.Controllers.BooksApiController.Get(System.Int32)">
             <summary>
             Get book by id
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:IsraelIT_test.Controllers.BooksController.GetByAuthor(System.String,System.Int32,System.Int32)">
+        <member name="M:IsraelIT_test.Controllers.BooksApiController.GetByAuthor(System.String,System.Int32,System.Int32)">
             <summary>
-            If author name not emthy -- filter books by this parametr, otherwise return not filtered list of books.
+            Returns books by Author name
             </summary>
             <param name="authorName"></param>
             <param name="page"></param>
             <param name="limit"></param>
             <returns></returns>
         </member>
-        <member name="M:IsraelIT_test.Controllers.BooksController.Post(IsraelIT_test.RequestModels.BookRequestModel)">
+        <member name="M:IsraelIT_test.Controllers.BooksApiController.Post(IsraelIT_test.RequestModels.BookRequestModel)">
             <summary>
             Create new book
             </summary>
             <param name="book"></param>
             <returns></returns>
         </member>
-        <member name="M:IsraelIT_test.Controllers.BooksController.Put(System.Int32,IsraelIT_test.RequestModels.BookRequestModel)">
+        <member name="M:IsraelIT_test.Controllers.BooksApiController.Put(System.Int32,IsraelIT_test.RequestModels.BookRequestModel)">
             <summary>
             Update any book
             </summary>
@@ -72,7 +72,7 @@
             <param name="book"></param>
             <returns></returns>
         </member>
-        <member name="M:IsraelIT_test.Controllers.BooksController.Delete(System.Int32)">
+        <member name="M:IsraelIT_test.Controllers.BooksApiController.Delete(System.Int32)">
             <summary>
             Delete any book
             </summary>
