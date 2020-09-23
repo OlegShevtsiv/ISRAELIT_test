@@ -144,6 +144,8 @@ namespace IsraelIT_test.Controllers
 
             libraryDBContext.Books.Add(newBook);
 
+            libraryDBContext.Entry<Book>(newBook).State = EntityState.Added;
+
             libraryDBContext.SaveChanges();
 
             return Ok();
@@ -204,6 +206,8 @@ namespace IsraelIT_test.Controllers
 
             libraryDBContext.Books.Update(bookToUpdate);
 
+            libraryDBContext.Entry<Book>(bookToUpdate).State = EntityState.Modified;
+
             libraryDBContext.SaveChanges();
 
             return Ok();
@@ -222,13 +226,15 @@ namespace IsraelIT_test.Controllers
                 return BadRequest($"'{nameof(id)}' have to be bigger than Zero!");
             }
 
-            Book bookToDelete = await libraryDBContext.Books.FirstOrDefaultAsync(b => b.Id == id);
+            Book bookToDelete = await libraryDBContext.Books.FindAsync(id);
             if (bookToDelete == null) 
             {
                 return NotFound($"Book with id '{id}' doesn't exist");
             }
 
             libraryDBContext.Books.Remove(bookToDelete);
+
+            libraryDBContext.Entry<Book>(bookToDelete).State = EntityState.Deleted;
 
             libraryDBContext.SaveChanges();
 

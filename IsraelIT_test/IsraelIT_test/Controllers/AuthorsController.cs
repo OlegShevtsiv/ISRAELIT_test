@@ -118,6 +118,8 @@ namespace IsraelIT_test.Controllers
 
             libraryDBContext.Authors.Add(newAuthor);
 
+            libraryDBContext.Entry<Author>(newAuthor).State = EntityState.Added;
+
             libraryDBContext.SaveChanges();
 
             return Ok();
@@ -175,6 +177,8 @@ namespace IsraelIT_test.Controllers
 
             libraryDBContext.Authors.Update(authorToUpdate);
 
+            libraryDBContext.Entry<Author>(authorToUpdate).State = EntityState.Modified;
+
             libraryDBContext.SaveChanges();
 
             return Ok();
@@ -188,14 +192,22 @@ namespace IsraelIT_test.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var author = await libraryDBContext.Authors.FindAsync(id);
-            if (author == null)
+            if (id < 0)
             {
-                return NotFound();
+                return BadRequest($"'{nameof(id)}' have to be bigger than Zero!");
             }
 
-            libraryDBContext.Authors.Remove(author);
-            await libraryDBContext.SaveChangesAsync();
+            Author authorToDelete = await libraryDBContext.Authors.FindAsync(id);
+            if (authorToDelete == null)
+            {
+                return NotFound($"Author with id '{id}' doesn't exist");
+            }
+
+            libraryDBContext.Authors.Remove(authorToDelete);
+
+            libraryDBContext.Entry<Author>(authorToDelete).State = EntityState.Deleted;
+
+            libraryDBContext.SaveChanges();
 
             return Ok();
         }

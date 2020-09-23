@@ -67,6 +67,7 @@
             <summary>
             Update any book
             </summary>
+            <param name="id"></param>
             <param name="book"></param>
             <returns></returns>
         </member>
